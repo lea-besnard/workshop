@@ -12,7 +12,7 @@ def app():
         result = unmasker(sentence)
         st.write(pd.DataFrame(result))
     else:
-        st.warning("The sentence needs to contains [MASK]")
+        st.warning("Léa is the best")
 
 
 if __name__ == '__main__':
