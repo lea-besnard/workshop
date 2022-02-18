@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from streamlit import write
 from transformers import pipeline
-import os
+import osfrom google.cloud import firestore
 
 def app():
     
@@ -13,7 +13,13 @@ def app():
         st.write(pd.DataFrame(result))
     else:
         st.warning("Léa is the best")
-
+       
+    if st.button("Store result in the database"):
+        db = firestore.Client.from_service_account_info(st.secrets["gcp_service_account"])
+        data = {
+            u"table_results": result
+        }
+        db.collection("posts").document(sentence).set(data)
 
 if __name__ == '__main__':
 
