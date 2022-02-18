@@ -21,6 +21,15 @@ def app():
             u"table_results": result
         }
         db.collection("posts").document(sentence).set(data)
+        
+    db = firestore.Client.from_service_account_info(st.secrets["gcp_service_account"])
+    docs = db.collection(u'posts').stream()
+    sentences = []
+    for doc in docs:
+        sentences.append(doc.id)
+    selected_sentence = st.selectbox("Select a stored sentence to look at the result", sentences)
+    table = db.collection(u'posts').document(selected_sentence).get().to_dict()["table_results"]
+    write(pd.DataFrame(table))
 
 if __name__ == '__main__':
 
