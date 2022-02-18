@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 from streamlit import write
 from transformers import pipeline
-import osfrom google.cloud import firestore
+import os
+from google.cloud import firestore
 
 def app():
     
